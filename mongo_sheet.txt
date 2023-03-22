@@ -1,0 +1,128 @@
+SQL Terms VS MongoDB Terms :------
+
+Database --> Database
+Table    --> Collection
+Row      --> Document (BSON)
+Column   --> Field
+
+
+---------MongoDB Commands For Databases---------
+
+view all databases
+show dbs
+
+create a new/swith db
+use dbName
+
+view current database
+db
+
+delete database
+db.dropDatabase()
+
+---------MongoDB Commands For collections---------
+
+diplay collections within a db
+show collections
+
+create a new collection in a db
+db.createCollection('collectionName') 
+
+delete a colection named students
+db.students.drop()
+
+---------MongoDB Commands For document/rows---------
+
+insert single document/row in a collection
+db.collectionName.insert({
+    'name':'Mrinmoy',
+    'lang': 'javascript'
+})
+
+insert many documentds/rows in a collection
+db.employee.insertMany([{
+    'name':'Mrinmoy',
+    'lang': 'javascript'
+},
+{
+    'name':'Rajneesh',
+    'lang': 'python'
+},
+{
+    'name':'Sabuj',
+    'lang': 'java'
+}])
+
+Add a new field to every document in a colection
+db.collectionName.updateMany({}, 
+{$set:{
+    'age':24
+}})
+
+show all documents/rows in a collection
+db.collectionName.find()
+
+show all documents/rows in a collection in organized form
+db.collectionName.find().pretty()
+db.collectionName.find().pretty().limit(2) // to limit the collection to 2 
+
+search in a MongoDB Database
+db.collectionName.find({lang:'python'})
+db.collectionName.find({lang:'python'}) //finds only 1st row matching with the query
+
+count the number  of rows in output
+db.employee.find().count()
+db.employee.find({name:"Mrinmoy"}).count()
+
+sort outputs of row find
+db.employee.find().sort({age:1}).pretty() //ascending
+db.employee.find().sort({age:-1}).pretty() //descending
+
+update a row
+db.collectionName.update({name:'Mrinmoy'}, 
+{
+    'name':'Mrinmoy',
+    'lang': 'pyscript'
+},  
+)
+
+upsert a row if not found
+db.collectionName.update({name:'Nandan'}, 
+{
+    'name':'Nandan',
+    'lang': 'pyscript'
+},  
+{upsert: true})
+
+rename a Field
+db.collectionName.update({name:'Nandan'},
+{$rename:{
+    lang:'language'
+}
+})
+
+increment the value of a Field
+db.collectionName.update({name:'Nandan'},
+{$rename:{
+    age:2
+}
+})
+
+Delete Row/document
+db.collectionName.remove({name:'junk'})
+
+Less than
+db.collectionName.find({age:{$lt: 30}})
+db.collectionName.find({age:{$lte: 30}}) //less than or equal
+
+greather than
+db.collectionName.find({age:{$gt: 30}})
+db.collectionName.find({age:{$gte: 30}}) //greather than oe equal
+
+
+
+
+
+
+
+
